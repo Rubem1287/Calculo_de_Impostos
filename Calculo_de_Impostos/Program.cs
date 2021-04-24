@@ -10,8 +10,8 @@ namespace Calculo_de_Impostos
         static void Main(string[] args)
         {
             List<Pessoa> pessoas = new List<Pessoa>();
-
-            Pessoa valor_Total = new Pessoa();
+            Pessoa_Fisica pessoa_Fisica = new Pessoa_Fisica();
+            double valor_Total = 0;
 
             Console.Write("Digite o valor de contribuintes : ");
             int n = int.Parse(Console.ReadLine());
@@ -31,8 +31,11 @@ namespace Calculo_de_Impostos
                     double despesasAnuais = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     Console.Write("Depesas Médicas : ");
                     double despesasMedicas = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                    valor_Total = new Pessoa();
+                    
                     pessoas.Add(new Pessoa_Fisica(despesasMedicas, nome, despesasAnuais));
+                    valor_Total += pessoa_Fisica.Calculo_Despesas(despesasAnuais, despesasMedicas);
+                    pessoa_Fisica.Salvar_Dados(valor_Total);
+
                 }
                 else
                 {
@@ -42,7 +45,7 @@ namespace Calculo_de_Impostos
                     double despesasAnuais = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     Console.Write("Número de funcionário : ");
                     int funcionario = int.Parse(Console.ReadLine());
-                    valor_Total = new Pessoa();
+                    //valor_Total = new Pessoa();
                     pessoas.Add(new Pessoa_Juridica(funcionario, nome, despesasAnuais));
                 }
                 Console.WriteLine();
@@ -54,14 +57,14 @@ namespace Calculo_de_Impostos
             Console.WriteLine("Taxas Pagas : ");
             foreach(Pessoa lista in pessoas)
             {
-
+               
                 Console.WriteLine(lista);
 
             }
 
             
 
-            Console.WriteLine("Total de Taxas Pagas"+valor_Total.ToString());
+            Console.WriteLine("Total de Taxas Pagas"+valor_Total.ToString("F2", CultureInfo.InvariantCulture));
             
 
 

@@ -11,40 +11,39 @@ namespace Calculo_de_Impostos.Entities
 
         public double Total_Impostos { get; set; }
 
+        public Pessoa_Fisica()
+        {
+
+        }
+
         public Pessoa_Fisica(double despesasMedicas, string nome, double despesasAnual) : base(nome, despesasAnual)
         {
             DespesasMedicas = despesasMedicas;
 
         }
 
-        public Pessoa_Fisica(double valor_Total)
-        {
-            Valor_Total = valor_Total;
-        }
-
-        public double Calculo_Despesas()
+        public double Calculo_Despesas(double despesas_anual, double despesas_medicas)
         {
             Total_Impostos = 0;
 
-            if(DespesaAnual < 20000.00)
+            if(despesas_anual < 20000.00)
             {
-                Total_Impostos = DespesaAnual * 0.15;
-                Total_Impostos = Total_Impostos - (DespesasMedicas / 2);
+                Total_Impostos = despesas_anual * 0.15;
+                Total_Impostos = Total_Impostos - (despesas_medicas / 2);
             }
             else
             {
-                Total_Impostos = DespesaAnual * 0.25;
-                Total_Impostos = Total_Impostos - (DespesasMedicas / 2);
+                Total_Impostos = despesas_anual * 0.25;
+                Total_Impostos = Total_Impostos - (despesas_medicas / 2);
             }
 
-            Salvar_Dados(Total_Impostos);
+            
             return Total_Impostos;
         }
 
-
-        public void Salvar_Dados(double total_Impostos)
+        public void Salvar_Dados(double dados)
         {
-            Valor_Total += Total_Impostos;
+            Total_Impostos = dados;
         }
 
 
@@ -52,7 +51,8 @@ namespace Calculo_de_Impostos.Entities
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Nome+" : $ "+Calculo_Despesas().ToString("F2", CultureInfo.InvariantCulture));
+            //sb.Append(Nome+" : $ "+Total_Impostos.ToString("F2", CultureInfo.InvariantCulture));
+            sb.Append(Total_Impostos);
             return sb.ToString();
 
 
