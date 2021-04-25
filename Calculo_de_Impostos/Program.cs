@@ -11,7 +11,10 @@ namespace Calculo_de_Impostos
         {
             List<Pessoa> pessoas = new List<Pessoa>();
             Pessoa_Fisica pessoa_Fisica = new Pessoa_Fisica();
+            Pessoa_Juridica pessoa_Juridica = new Pessoa_Juridica();
+
             double valor_Total = 0;
+            double valores = 0;
 
             Console.Write("Digite o valor de contribuintes : ");
             int n = int.Parse(Console.ReadLine());
@@ -32,10 +35,10 @@ namespace Calculo_de_Impostos
                     Console.Write("Depesas Médicas : ");
                     double despesasMedicas = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     
-                    pessoas.Add(new Pessoa_Fisica(despesasMedicas, nome, despesasAnuais));
-                    valor_Total += pessoa_Fisica.Calculo_Despesas(despesasAnuais, despesasMedicas);
-                    pessoa_Fisica.Salvar_Dados(valor_Total);
-
+                    valores = pessoa_Fisica.Calculo_Despesas(despesasAnuais, despesasMedicas);
+                    pessoas.Add(new Pessoa_Fisica(despesasMedicas, nome, despesasAnuais, valores));
+                    valor_Total += valores;
+                    valores = 0;
                 }
                 else
                 {
@@ -45,8 +48,11 @@ namespace Calculo_de_Impostos
                     double despesasAnuais = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                     Console.Write("Número de funcionário : ");
                     int funcionario = int.Parse(Console.ReadLine());
-                    //valor_Total = new Pessoa();
-                    pessoas.Add(new Pessoa_Juridica(funcionario, nome, despesasAnuais));
+
+                    valores = pessoa_Juridica.Calculo_Despesas(despesasAnuais, funcionario);
+                    pessoas.Add(new Pessoa_Juridica(funcionario, nome, despesasAnuais, valores));
+                    valor_Total += valores;
+                    valores = 0;
                 }
                 Console.WriteLine();
 
@@ -64,7 +70,7 @@ namespace Calculo_de_Impostos
 
             
 
-            Console.WriteLine("Total de Taxas Pagas"+valor_Total.ToString("F2", CultureInfo.InvariantCulture));
+            Console.WriteLine("Total de Taxas Pagas : "+valor_Total.ToString("F2", CultureInfo.InvariantCulture));
             
 
 

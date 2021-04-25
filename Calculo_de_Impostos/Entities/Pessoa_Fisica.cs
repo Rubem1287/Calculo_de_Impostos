@@ -16,15 +16,16 @@ namespace Calculo_de_Impostos.Entities
 
         }
 
-        public Pessoa_Fisica(double despesasMedicas, string nome, double despesasAnual) : base(nome, despesasAnual)
+        public Pessoa_Fisica(double despesasMedicas, string nome, double despesasAnual, double valor) : base(nome, despesasAnual)
         {
             DespesasMedicas = despesasMedicas;
+            Total_Impostos = valor;
 
         }
 
         public double Calculo_Despesas(double despesas_anual, double despesas_medicas)
         {
-            Total_Impostos = 0;
+            
 
             if(despesas_anual < 20000.00)
             {
@@ -41,18 +42,14 @@ namespace Calculo_de_Impostos.Entities
             return Total_Impostos;
         }
 
-        public void Salvar_Dados(double dados)
-        {
-            Total_Impostos = dados;
-        }
+       
 
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
-            //sb.Append(Nome+" : $ "+Total_Impostos.ToString("F2", CultureInfo.InvariantCulture));
-            sb.Append(Total_Impostos);
+            sb.Append(Nome+" : $ "+Total_Impostos.ToString("F2", CultureInfo.InvariantCulture));
             return sb.ToString();
 
 

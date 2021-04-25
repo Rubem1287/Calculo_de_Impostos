@@ -12,25 +12,31 @@ namespace Calculo_de_Impostos.Entities
         public double Total_Impostos { get; set; }
 
 
-        public Pessoa_Juridica(int funcionarios, string nome, double despesasAnual) : base(nome, despesasAnual)
+        public Pessoa_Juridica()
         {
-            Funcionarios = funcionarios;
 
         }
 
-        public double Calculo_Despesas()
+        public Pessoa_Juridica(int funcionarios, string nome, double despesasAnual, double valor) : base(nome, despesasAnual)
         {
-            Total_Impostos = 0;
+            Funcionarios = funcionarios;
+            Total_Impostos = valor;
 
-            if(Funcionarios > 10)
+        }
+
+        public double Calculo_Despesas(double despesas_Anual, int funcionario)
+        {
+           
+
+            if(funcionario > 10)
             {
-                Total_Impostos = DespesaAnual * 0.14;
+                Total_Impostos = despesas_Anual * 0.14;
             }
             else
             {
-                Total_Impostos = DespesaAnual * 0.16;
+                Total_Impostos = despesas_Anual * 0.16;
             }
-            Valor_Total += Total_Impostos;
+            
             return Total_Impostos;
         }
 
@@ -39,7 +45,7 @@ namespace Calculo_de_Impostos.Entities
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Nome + " : $ " + Calculo_Despesas().ToString("F2", CultureInfo.InvariantCulture));
+            sb.Append(Nome + " : $ " + Total_Impostos.ToString("F2", CultureInfo.InvariantCulture));
 
             return sb.ToString();
 
